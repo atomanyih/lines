@@ -12,7 +12,7 @@ type WrappedProps = {
   sinValue: number
 }
 
-const withSin = (periodMs) => (Wrapped: React.ComponentType<WrappedProps>) =>
+const withSin = (periodMs: number) => (Wrapped: React.ComponentType<WrappedProps>) =>
   class WithSin extends React.Component<Props, State> {
     state = {
       val: 1

@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Fragment} from 'react';
-import Path from "./Path";
+import Line from "./basics/Line";
 
 type Props = {
   borderWidth: number,
@@ -9,8 +9,8 @@ type Props = {
   containerWidth: number
 }
 
-const Line = ({borderWidth, offset, containerWidth, ...otherProps}: Props) => (
-  <Path {...{
+const Ripple = ({borderWidth, offset, containerWidth, ...otherProps}: Props) => (
+  <Line {...{
     ...otherProps,
     d: [
       ['M', offset, 0],
@@ -18,11 +18,7 @@ const Line = ({borderWidth, offset, containerWidth, ...otherProps}: Props) => (
       ['L', borderWidth, offset + borderWidth],
       ['L', 0, offset],
     ],
-    stroke: 'white',
-    fill: 'none',
-    strokeLinecap: 'square',
-    strokeLinejoin: 'round',
   }} />
 );
 
-export default Line
+export default Ripple

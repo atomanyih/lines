@@ -3,7 +3,7 @@ import React from 'react';
 import {compose, withProps} from 'recompose';
 
 import withSin from "./withSin";
-import Path from "./Path";
+import Path from "./basics/Path";
 import Frame from "./Frame";
 import Half from "./Half";
 
@@ -27,7 +27,7 @@ const lineSpacing = containerWidth / numLines;
 
 const App = ({sinValue}) => {
   let offsetFactor = (1 + sinValue) * 10;
-  let borderWidth = (1+ sinValue) * 25
+  // let borderWidth = (1+ sinValue) * 25
 
   return (
     <Frame width={700} height={700}>
@@ -43,13 +43,14 @@ const App = ({sinValue}) => {
               ]
             }}/>
           </clipPath>
+          <symbol id="half" viewBox="0 0 100 100">
+            <g clipPath="url(#top-left)">
+              <Half {...{numLines, lineSpacing, offsetFactor, containerWidth, borderWidth}}/>
+            </g>
+          </symbol>
         </defs>
-        <g clipPath="url(#top-left)">
-          <Half {...{numLines, lineSpacing, offsetFactor, containerWidth, borderWidth}}/>
-        </g>
-        <g clipPath="url(#top-left)" transform={`rotate(180 ${containerWidth / 2} ${containerWidth / 2})`}>
-          <Half {...{numLines, lineSpacing, offsetFactor, containerWidth, borderWidth}}/>
-        </g>
+        <use xlinkHref="#half" />
+        <use xlinkHref="#half" transform={`rotate(180 ${containerWidth / 2} ${containerWidth / 2})`} />
       </SVG>
     </Frame>
 
