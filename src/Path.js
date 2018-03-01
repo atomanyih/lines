@@ -2,15 +2,19 @@
 
 import React from "react";
 
-type PathSegment = [string, number, number]
+type PathSegment = string | [string, number, number]
 
 type Props = {
   d: PathSegment[]
 }
 
-const pathSegmentToString = ([c, x, y]: PathSegment) => `${c}${x} ${y}`;
+const pathSegmentToString = (segment: PathSegment) => (
+  typeof segment === 'string'
+    ? segment
+    : segment.join(' ')
+);
 
-const Path = ({d, ...otherProps} : Props) => (
+const Path = ({d, ...otherProps}: Props) => (
   <path {...{
     ...otherProps,
     d: d.map(pathSegmentToString).join(' ')
