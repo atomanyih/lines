@@ -6,9 +6,10 @@ import Line from './Line';
 import withSin from "./withSin";
 import Path from "./Path";
 import Frame from "./Frame";
+import Half from "./Half";
 
 const containerWidth = 100;
-const innerWidth = 50;
+const innerWidth = 10;
 const borderWidth = (containerWidth - innerWidth) / 2;
 
 type Props = {
@@ -21,8 +22,6 @@ const SVG = ({viewBox, ...otherProps}: Props) => (
     ...otherProps,
   }}/>
 );
-
-const range = (n) => Array(n).fill().map((_, i) => i);
 
 const numLines = 15;
 const lineSpacing = containerWidth / numLines;
@@ -46,46 +45,10 @@ const App = ({sinValue}) => {
           </clipPath>
         </defs>
         <g clipPath="url(#top-left)">
-          {
-            range(numLines).map((v) => {
-              const offset = ((v + 1) * lineSpacing + offsetFactor) % containerWidth;
-
-              return (
-                <Line {...{
-                  borderWidth,
-                  containerWidth,
-                  offset: offset,
-                  key: v,
-                }} />
-              )
-            })
-          }
-          <Line {...{
-            borderWidth,
-            containerWidth,
-            offset: 0,
-          }} />
+          <Half {...{numLines, lineSpacing, offsetFactor, containerWidth, borderWidth}}/>
         </g>
         <g clipPath="url(#top-left)" transform={`rotate(180 ${containerWidth / 2} ${containerWidth / 2})`}>
-          {
-            range(numLines).map((v) => {
-              const offset = ((v + 1) * lineSpacing + offsetFactor) % containerWidth;
-
-              return (
-                <Line {...{
-                  borderWidth,
-                  containerWidth,
-                  offset: offset,
-                  key: v,
-                }} />
-              )
-            })
-          }
-          <Line {...{
-            borderWidth,
-            containerWidth,
-            offset: 0,
-          }} />
+          <Half {...{numLines, lineSpacing, offsetFactor, containerWidth, borderWidth }}/>
         </g>
       </SVG>
     </Frame>
