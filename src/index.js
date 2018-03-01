@@ -8,7 +8,7 @@ import App from "./App";
 injectGlobal`
   body {
     margin: 0;
-    background-color: pink;
+    background-color: firebrick;
   }
 `;
 

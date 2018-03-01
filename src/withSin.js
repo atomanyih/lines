@@ -12,40 +12,41 @@ type WrappedProps = {
   sinValue: number
 }
 
-const withSin = (Wrapped: React.ComponentType<WrappedProps>) => class WithSin extends React.Component<Props, State> {
-  state = {
-    val: 1
-  };
+const withSin = (periodMs) => (Wrapped: React.ComponentType<WrappedProps>) =>
+  class WithSin extends React.Component<Props, State> {
+    state = {
+      val: 1
+    };
 
-  mounted = true;
+    mounted = true;
 
-  animate = () => {
-    if (this.mounted) {
+    animate = () => {
+      if (this.mounted) {
 
-      let val = Math.sin(Date.now() / (Math.PI * 1000));
-      // console.log(val)
-      this.setState({
-        val: val
-      });
+        let val = Math.sin(Date.now() / (Math.PI * periodMs));
+        // console.log(val)
+        this.setState({
+          val: val
+        });
 
 
-      window.requestAnimationFrame(this.animate)
+        window.requestAnimationFrame(this.animate)
+      }
+    };
+
+    componentDidMount() {
+      this.animate();
+    }
+
+    componentWillUnmount() {
+      this.mounted = false;
+    }
+
+    render() {
+      return (
+        <Wrapped {...{...this.props, sinValue: this.state.val}}/>
+      );
     }
   };
-
-  componentDidMount() {
-    this.animate();
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
-  }
-
-  render() {
-    return (
-      <Wrapped {...{...this.props, sinValue: this.state.val}}/>
-    );
-  }
-};
 
 export default withSin
