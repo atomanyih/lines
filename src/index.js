@@ -1,6 +1,9 @@
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled, {injectGlobal} from 'styled-components';
+import {injectGlobal} from 'styled-components';
+import App from "./App";
 
 injectGlobal`
   body {
@@ -9,20 +12,7 @@ injectGlobal`
   }
 `;
 
-const Hi = styled.div`
-  font-weight: bold;
-`;
-
-class App extends React.Component {
-  render() {
-    return (
-      <div className="app">
-        <Hi>
-          yo sup
-        </Hi>
-      </div>
-    );
-  }
+const root = document.getElementById('root');
+if(root) {
+  ReactDOM.render(<App/>, root);
 }
-
-ReactDOM.render(<App />, document.getElementById('root'));
