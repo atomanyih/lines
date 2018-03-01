@@ -1,13 +1,11 @@
 // @flow
 import React from 'react';
+import {compose, withProps} from 'recompose';
+
 import Line from './Line';
 import withSin from "./withSin";
 import Path from "./Path";
 import Frame from "./Frame";
-
-// const Path = styled.path`
-//   stroke: ${({stroke}) => stroke}
-// `;
 
 const containerWidth = 100;
 const innerWidth = 50;
@@ -30,6 +28,8 @@ const numLines = 15;
 const lineSpacing = containerWidth / numLines;
 
 const App = ({sinValue}) => {
+  let offsetFactor = (1 + sinValue) * 10;
+
   return (
     <Frame width={500} height={500}>
       <SVG viewBox={[0, 0, containerWidth, containerWidth]}>
@@ -48,7 +48,7 @@ const App = ({sinValue}) => {
         <g clipPath="url(#top-left)">
           {
             range(numLines).map((v) => {
-              const offset = ((v + 1) * lineSpacing + (1 + sinValue) * 10) % containerWidth;
+              const offset = ((v + 1) * lineSpacing + offsetFactor) % containerWidth;
 
               return (
                 <Line {...{
@@ -69,7 +69,7 @@ const App = ({sinValue}) => {
         <g clipPath="url(#top-left)" transform={`rotate(180 ${containerWidth / 2} ${containerWidth / 2})`}>
           {
             range(numLines).map((v) => {
-              const offset = ((v + 1) * lineSpacing + (1 + sinValue) * 10) % containerWidth;
+              const offset = ((v + 1) * lineSpacing + offsetFactor) % containerWidth;
 
               return (
                 <Line {...{
@@ -87,12 +87,12 @@ const App = ({sinValue}) => {
             offset: 0,
           }} />
         </g>
-
-
       </SVG>
     </Frame>
 
   );
 };
 
-export default withSin(App)
+export default compose(
+  withSin,
+)(App)
