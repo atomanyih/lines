@@ -3,9 +3,7 @@
 import * as React from 'react';
 import Ripple from "./Ripple";
 import Line from "./basics/Line";
-
-const range = (n) => Array(n).fill().map((_, i) => i);
-const scale = (min, max) => (i) => (1 - i) * (max - min) + min;
+import {range, scale} from "./util";
 
 type Props = {
   numLines: number,

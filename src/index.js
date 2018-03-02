@@ -4,11 +4,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {injectGlobal} from 'styled-components';
 import App from "./App";
+import {BACKGROUND_COLOR} from "./Colors";
 
 injectGlobal`
   body {
     margin: 0;
-    background-color: firebrick;
+    background-color: ${BACKGROUND_COLOR};
   }
 `;
 
