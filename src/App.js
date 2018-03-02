@@ -58,5 +58,5 @@ const App = ({sinValue}) => {
 };
 
 export default compose(
-  withSin(5000),
+  withSin(10000),
 )(App)
