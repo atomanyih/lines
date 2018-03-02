@@ -12,21 +12,24 @@ type Props = {
   borderWidth: number,
   offsetFactor: number,
   containerWidth: number,
+  r: number,
 }
 
-const CircleHalf = ({numLines, lineSpacing, borderWidth, offsetFactor, containerWidth}: Props) => (
+const CircleHalf = ({numLines, lineSpacing, borderWidth, offsetFactor, containerWidth, r}: Props) => (
   <React.Fragment>
     {
-      range(20).map((v) => {
-        const offset = ((v + 1) * lineSpacing/2 + offsetFactor) % containerWidth;
+      range(numLines).map((v) => {
+        const offset = ((v) * lineSpacing + offsetFactor) % containerWidth;
 
         const [x, y] = findIntersection({
           c: offset,
           m: 1,
           cy: containerWidth / 2,
           cx: containerWidth / 2,
-          r: 25
+          r
         })
+
+        const strokeWidth = scale(0.1, 1.5)(1 - offset / containerWidth)
 
         if (isNaN(x) || isNaN(y)) {
           return (
@@ -39,7 +42,7 @@ const CircleHalf = ({numLines, lineSpacing, borderWidth, offsetFactor, container
               ],
               key: v,
               stroke: 'white',
-              strokeWidth: 0.1,
+              strokeWidth,
             }}/>
           )
 
@@ -55,7 +58,7 @@ const CircleHalf = ({numLines, lineSpacing, borderWidth, offsetFactor, container
             ],
             key: v,
             stroke: 'white',
-            strokeWidth: 0.1
+            strokeWidth
           }}/>
         )
       })

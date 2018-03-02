@@ -6,7 +6,4 @@
 
 #circle:
 
-middle line pops into existence
-inner color is blech
-
-re-enable the square pls
+diff color for circle
