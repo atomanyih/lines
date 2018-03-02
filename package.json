@@ -25,7 +25,8 @@
   },
   "scripts": {
     "dev": "webpack --mode development",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "build:gh-pages": "webpack --mode production --output-path ./docs"
   },
   "author": "",
   "license": "ISC",
