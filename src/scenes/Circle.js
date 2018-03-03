@@ -48,9 +48,9 @@ const App = ({sinValue}) => {
               ]
             }}/>
           </clipPath>
-          {/*<clipPath id="circle-frame" x={0} y={0} width={containerWidth} height={containerWidth}>*/}
-            {/*<circle r={containerWidth / 2} cx={containerWidth / 2} cy={containerWidth / 2}/>*/}
-          {/*</clipPath>*/}
+          <clipPath id="circle-frame" x={0} y={0} width={containerWidth} height={containerWidth}>
+            <circle r={containerWidth / 2} cx={containerWidth / 2} cy={containerWidth / 2}/>
+          </clipPath>
           <symbol id="half" viewBox="0 0 100 100">
             <g clipPath="url(#top-left)">
               <CircleHalf {...{numLines, lineSpacing, offsetFactor, containerWidth, borderWidth, r}}/>
@@ -63,9 +63,10 @@ const App = ({sinValue}) => {
         {/*r,*/}
         {/*fill: CIRCLE_FILL*/}
         {/*}}/>*/}
-        <use xlinkHref="#half"/>
-        <use xlinkHref="#half" transform={`rotate(180 ${containerWidth / 2} ${containerWidth / 2})`}/>
-
+        <g transform={`rotate(45 ${containerWidth / 2} ${containerWidth / 2})`}>
+          <use xlinkHref="#half"/>
+          <use xlinkHref="#half" transform={`rotate(180 ${containerWidth / 2} ${containerWidth / 2})`}/>
+        </g>
       </SVG>
     </Frame>
 
@@ -73,5 +74,5 @@ const App = ({sinValue}) => {
 };
 
 export default compose(
-  withSin(10000),
+  withSin(100000),
 )(App)
