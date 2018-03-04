@@ -5,6 +5,8 @@
 // x = (-B ± Math.sqrt(B * B - 4 * A * C)) / (2 * A);
 // y = m * x + c;
 
+// finds the intersection of straight line and a circle
+// or at least close enough to look good
 
 const findIntersection = ({c, m, cy, cx, r}) => {
   const A = m * m + 1;

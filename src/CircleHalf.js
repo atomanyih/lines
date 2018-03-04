@@ -8,53 +8,51 @@ import findIntersection from "./findIntersection";
 
 type Props = {
   numLines: number,
-  lineSpacing: number,
   borderWidth: number,
   offsetFactor: number,
   containerWidth: number,
   r: number,
 }
 
-const CircleHalf = ({numLines, lineSpacing, borderWidth, offsetFactor, containerWidth, r}: Props) => (
+const circle = ({cx, cy, r, x}) => cy - Math.sqrt(r * r - (cx - x) * (cx - x));
+
+const CircleHalf = ({numLines, borderWidth, offsetFactor, containerWidth, r}: Props) => (
   <React.Fragment>
     {
       range(numLines).map((v) => {
-        const offset = ((v) * lineSpacing + offsetFactor) % containerWidth;
+        const offset = v * (containerWidth / 2 / numLines) + offsetFactor + containerWidth / 2;
+        const strokeWidth = scale(0.1, 1.5)(1 - v / numLines)
 
-        const [x, y] = findIntersection({
-          c: offset,
-          m: 1,
-          cy: containerWidth / 2,
-          cx: containerWidth / 2,
-          r
-        })
 
-        const strokeWidth = scale(0.1, 1.5)(1 - offset / containerWidth)
-
-        if (isNaN(x) || isNaN(y)) {
+        if (offset < (containerWidth / 2 - r) || offset > (containerWidth / 2 + r)) {
           return (
             <Line {...{
               d: [
-                `M 0 ${offset}`,
-                `L ${containerWidth} ${containerWidth + offset}`,
                 `M ${offset} 0`,
-                `L ${containerWidth + offset} ${containerWidth}`
+                `L ${offset} ${containerWidth / 2}`,
+                `M ${containerWidth - offset} 0`,
+                `L ${containerWidth - offset} ${containerWidth / 2}`,
               ],
               key: v,
               stroke: 'white',
-              strokeWidth,
+              strokeWidth
             }}/>
           )
-
         }
+        const y = circle({
+          cx: containerWidth / 2,
+          cy: containerWidth / 2,
+          r,
+          x: offset
+        })
 
         return (
           <Line {...{
             d: [
-              `M 0 ${offset}`,
-              `L ${x} ${y}`,
-              `L ${y} ${x}`,
-              `L ${offset} 0`
+              `M ${offset} 0`,
+              `L ${offset} ${y}`,
+              `L ${containerWidth - offset} ${y}`,
+              `L ${containerWidth - offset} ${0}`,
             ],
             key: v,
             stroke: 'white',
@@ -63,14 +61,7 @@ const CircleHalf = ({numLines, lineSpacing, borderWidth, offsetFactor, container
         )
       })
     }
-    {/*<Line {...{*/}
-    {/*d: [*/}
-    {/*'M 0 0',*/}
-    {/*`L ${borderWidth} ${borderWidth}`*/}
-    {/*],*/}
-    {/*stroke: 'white',*/}
-    {/*strokeWidth: 2*/}
-    {/*}} />*/}
+
   </React.Fragment>
 );
 
