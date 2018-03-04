@@ -12,7 +12,7 @@ type WrappedProps = {
   sinValue: number
 }
 
-const withSin = (periodMs: number) => (Wrapped: React.ComponentType<WrappedProps>) =>
+const withSin = (periodMs: number, phase: number = 0) => (Wrapped: React.ComponentType<WrappedProps>) =>
   class WithSin extends React.Component<Props, State> {
     state = {
       val: 1
@@ -22,8 +22,7 @@ const withSin = (periodMs: number) => (Wrapped: React.ComponentType<WrappedProps
 
     animate = () => {
       if (this.mounted) {
-
-        let val = Math.sin(Date.now() / (Math.PI * periodMs));
+        let val = Math.sin((Date.now() * 2 * Math.PI) /  periodMs + phase);
         // console.log(val)
         this.setState({
           val: val

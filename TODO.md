@@ -4,6 +4,9 @@
 
 [] organize components better
 
+[] the peaks should correspond to particular times
+
+[] redo the circle to not use a transform for rotation
 # brainheater
 
 ## circle:

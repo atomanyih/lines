@@ -73,6 +73,9 @@ const App = ({sinValue}) => {
   );
 };
 
+
+const minutesToMs = minutes => minutes * 60000;
+
 export default compose(
-  withSin(100000),
+  withSin(minutesToMs(30)),
 )(App)
