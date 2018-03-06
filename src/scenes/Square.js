@@ -20,15 +20,15 @@ const App = ({sinValue}) => {
   // let borderWidth = (1+ sinValue) * 25
 
   return (
-    <Frame width={700} height={700}>
+    <Frame width={500} height={500}>
       <SVG viewBox={[0, 0, containerWidth, containerWidth]}>
         <defs>
           <clipPath id="top-left" x={0} y={0} width={containerWidth} height={containerWidth}>
             <Path {...{
               d: [
                 ['M', 0, 0],
-                ['L', containerWidth, 0.1], // fudge factor to avoid white line in between halves
-                ['L', 0.1, containerWidth],
+                ['L', containerWidth + 0.1, 0], // fudge factor to avoid white line in between halves
+                ['L', containerWidth /2 + 0.1, containerWidth / 2 + 0.1 ],
                 'Z'
               ]
             }}/>
@@ -40,7 +40,9 @@ const App = ({sinValue}) => {
           </symbol>
         </defs>
         <use xlinkHref="#half" />
-        <use xlinkHref="#half" transform={`rotate(180 ${containerWidth / 2} ${containerWidth / 2})`} />
+        <use xlinkHref="#half" transform={`scale(1 -1) rotate(-90)`} />
+        <use xlinkHref="#half" transform={`scale(1 -1) rotate(90 ${containerWidth} 0)`} />
+        <use xlinkHref="#half" transform={`rotate(180 ${containerWidth/2} ${containerWidth/2})`}/>
 
       </SVG>
     </Frame>
@@ -49,5 +51,5 @@ const App = ({sinValue}) => {
 };
 
 export default compose(
-  withSin(10000),
+  withSin(300000),
 )(App)

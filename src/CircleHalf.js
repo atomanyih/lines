@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import Ripple from "./Ripple";
 import Line from "./basics/Line";
 import {range, scale} from "./util";
 import findIntersection from "./findIntersection";

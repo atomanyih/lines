@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import Ripple from "./Ripple";
 import Line from "./basics/Line";
 import {range, scale} from "./util";
 
@@ -19,16 +18,20 @@ const Half = ({numLines, lineSpacing, borderWidth, offsetFactor, containerWidth}
       range(numLines).map((v) => {
         const offset = ((v + 1) * lineSpacing + offsetFactor) % containerWidth;
 
-        return (
-          <Ripple {...{
-            borderWidth,
-            containerWidth,
-            offset: offset,
-            key: v,
-            stroke: 'white',
-            strokeWidth: scale(0.1, 2)(offset / containerWidth),
-          }} />
-        )
+          return (
+            <Line {...{
+              d: [
+                ['M', offset, 0],
+                ['l', borderWidth, borderWidth],
+                ['l', - borderWidth / 2, borderWidth / 2],
+                ['l', borderWidth / 2, borderWidth / 2],
+              ]
+              ,
+              key: v,
+              stroke: 'white',
+              strokeWidth: scale(0.1, 2)(offset / containerWidth),
+            }} />
+          )
       })
     }
     <Line {...{
